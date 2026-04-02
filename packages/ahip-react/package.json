@@ -1,7 +1,9 @@
 {
   "name": "@ahip/react",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.2.0-preview.0",
+  "description": "Host-controlled React renderer for the Agent-Human Interaction Protocol.",
+  "license": "Apache-2.0",
+  "private": false,
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -12,6 +14,9 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsup src/index.tsx --format esm,cjs --dts --external react --external react-dom",

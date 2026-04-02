@@ -1,9 +1,9 @@
 /**
- * AHIP v0.2 Reference Types
+ * AHIP v0.2 Core Types
  * Agent-Human Interaction Protocol
  *
- * This file mirrors the AHIP v0.2 clean draft and the companion JSON Schema.
- * Hosts should still validate untrusted input before rendering or execution.
+ * Core AHIP v0.2 types used by the preview implementation.
+ * Hosts should validate untrusted input before rendering content or dispatching behavior.
  */
 
 export type ISODateTimeString = string;
