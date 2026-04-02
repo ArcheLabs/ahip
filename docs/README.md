@@ -1,8 +1,6 @@
 # AHIP Docs
 
-Milestone 1 establishes the monorepo structure and core protocol package.
-
-Planned follow-up docs:
+Current docs:
 
 - `getting-started.md`
 - `package-overview.md`
@@ -12,3 +10,5 @@ Planned follow-up docs:
 - `custom-extensions.md`
 - `applet-boundary.md`
 - `gomoku-showcase.md`
+
+These pages explain the core package, the React renderer layer, the examples package, the local applet boundary, and the Gomoku (Five in a Row) showcase.

@@ -58,6 +58,9 @@ importers:
       '@ahip/core':
         specifier: workspace:*
         version: link:../ahip-core
+      '@ahip/react':
+        specifier: workspace:*
+        version: link:../ahip-react
 
   packages/ahip-react:
     dependencies:

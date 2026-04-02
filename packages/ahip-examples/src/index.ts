@@ -1,28 +1,56 @@
-import type { AHIPItem } from "@ahip/core";
+export type {
+  AHIPExampleFixture,
+  ExampleAppletManifest,
+  ExampleAppletRegistrationStep,
+  ExampleHostEvent
+} from "./types.js";
 
-export const simpleTextTurn: AHIPItem = {
-  protocol: "ahip",
-  version: "0.2",
-  item_id: "example-simple-text-turn",
-  kind: "turn",
-  actor: {
-    actor_id: "agent-demo",
-    actor_kind: "agent",
-    display_name: "Demo Agent"
-  },
-  created_at: "2026-04-02T00:00:00Z",
-  content: [
-    {
-      id: "text-1",
-      type: "text",
-      text: "Hello from the AHIP examples package.",
-      fallback_text: "Hello from the AHIP examples package."
-    }
-  ],
-  fallback_text: "Hello from the AHIP examples package."
-};
+export {
+  standardBlockItem,
+  approvalRequestItem,
+  paymentRequestItem,
+  artifactAnnouncementItem,
+  validFixtures
+} from "./valid/standard.js";
 
-export const invalidProtocolTurn = {
-  ...simpleTextTurn,
-  version: "0.1"
-};
+export {
+  CUSTOM_PROFILE_BLOCK_TYPE,
+  REGISTRY_WIDGET_TYPE,
+  UNSUPPORTED_WIDGET_TYPE,
+  UNSUPPORTED_BLOCK_TYPE,
+  THROWING_PANEL_BLOCK_TYPE,
+  customBlockRegistryItem,
+  unsupportedBlockFallbackItem,
+  widgetRegistryItem,
+  unsupportedWidgetFallbackItem,
+  partialFailureRenderItem,
+  extensionFixtures
+} from "./valid/extensions.js";
+
+export { invalidFixtures } from "./invalid/items.js";
+
+export {
+  GOMOKU_APPLET_ID,
+  GOMOKU_BOARD_BLOCK_TYPE,
+  GOMOKU_WIDGET_TYPE,
+  type GomokuBoardData,
+  type GomokuMove
+} from "./showcase/gomoku/types.js";
+
+export {
+  gomokuGameStartItem,
+  gomokuHumanMoveSubmissionItem,
+  gomokuUpdatedBoardItem,
+  gomokuGameFinishedItem,
+  gomokuShowcaseFixtures
+} from "./showcase/gomoku/fixtures.js";
+
+export {
+  gomokuAppletManifest,
+  invalidGomokuAppletManifest,
+  gomokuAppletRegistrationFlow,
+  appletResolvedWidgetItem,
+  appletBoundaryFixtures
+} from "./applets/gomoku/manifest.js";
+
+export { createExampleHostDemo, createLocalAppletRegistry } from "./demo/host.js";

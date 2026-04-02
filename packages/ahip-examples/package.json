@@ -16,10 +16,11 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "vitest run --passWithNoTests",
-    "lint": "eslint src --ext .ts"
+    "test": "vitest run",
+    "lint": "eslint src --ext .ts,.tsx"
   },
   "dependencies": {
-    "@ahip/core": "workspace:*"
+    "@ahip/core": "workspace:*",
+    "@ahip/react": "workspace:*"
   }
 }

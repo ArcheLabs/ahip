@@ -359,7 +359,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "required": [
             "markdown"
           ],
@@ -381,7 +380,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "required": [
             "url"
           ],
@@ -415,7 +413,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "required": [
             "name"
           ],
@@ -451,7 +448,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "required": [
             "code"
           ],
@@ -476,7 +472,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "required": [
             "text"
           ],
@@ -501,7 +496,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "properties": {
             "type": {
               "const": "divider"
@@ -517,7 +511,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "required": [
             "label"
           ],
@@ -542,7 +535,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "required": [
             "label",
             "value"
@@ -720,7 +712,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "required": [
             "columns",
             "rows"
@@ -894,7 +885,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "required": [
             "spec"
           ],
@@ -932,7 +922,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "required": [
             "entity_kind",
             "entity_id",
@@ -1169,7 +1158,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "required": [
             "form_id",
             "submit_action_id",
@@ -1202,7 +1190,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "required": [
             "status"
           ],
@@ -1233,7 +1220,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "required": [
             "code",
             "message"
@@ -1262,7 +1248,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "required": [
             "amount",
             "asset",
@@ -1309,7 +1294,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "required": [
             "amount",
             "asset",
@@ -1357,7 +1341,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "properties": {
             "type": {
               "$ref": "#/$defs/ExtensionIdentifier"
