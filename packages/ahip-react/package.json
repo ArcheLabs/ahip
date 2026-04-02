@@ -16,7 +16,7 @@
   "scripts": {
     "build": "tsup src/index.tsx --format esm,cjs --dts --external react --external react-dom",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "vitest run --passWithNoTests",
+    "test": "vitest run",
     "lint": "eslint src --ext .ts,.tsx"
   },
   "dependencies": {

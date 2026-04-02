@@ -1,22 +1,36 @@
-import type { ReactNode } from "react";
-
-import { getFallbackText, type AHIPItem } from "@ahip/core";
-
-export interface AppletRendererProps {
-  item: AHIPItem;
-}
-
-export type AppletRenderer = (props: AppletRendererProps) => ReactNode;
-
-export interface AppletRegistry {
-  getRenderer(identifier: string): AppletRenderer | undefined;
-}
-
-export interface AHIPItemRendererProps {
-  item: AHIPItem;
-  appletRegistry?: AppletRegistry;
-}
-
-export function AHIPItemRenderer({ item }: AHIPItemRendererProps): ReactNode {
-  return item.fallback_text ?? getFallbackText(item) ?? null;
-}
+export { AHIPItemRenderer } from "./components/AHIPItemRenderer.js";
+export { AHIPContentRenderer } from "./components/AHIPContentRenderer.js";
+export { AHIPActionBar } from "./components/AHIPActionBar.js";
+export { AHIPApprovalList } from "./components/AHIPApprovalList.js";
+export { AHIPArtifactList } from "./components/AHIPArtifactList.js";
+export { AHIPStatePatchList } from "./components/AHIPStatePatchList.js";
+export { AHIPToolIntentList } from "./components/AHIPToolIntentList.js";
+export { AHIPFallbackRenderer } from "./components/AHIPFallback.js";
+export { WidgetHost } from "./widgets/WidgetHost.js";
+export {
+  createBlockRegistry,
+  defaultBlockRendererRegistry
+} from "./registry/createBlockRegistry.js";
+export {
+  createWidgetRegistry,
+  defaultWidgetRegistry
+} from "./registry/createWidgetRegistry.js";
+export { defaultBlockRenderers } from "./registry/defaultRegistry.js";
+export type {
+  AHIPActionDispatcher,
+  AHIPAppletRegistry,
+  AHIPArtifactOpener,
+  AHIPBlockRenderer,
+  AHIPBlockRendererProps,
+  AHIPBlockRendererRegistry,
+  AHIPFallbackRendererComponent,
+  AHIPFallbackRendererProps,
+  AHIPHostContext,
+  AHIPRenderArea,
+  AHIPRenderErrorContext,
+  AHIPWidgetRenderer,
+  AHIPWidgetRendererProps,
+  AHIPWidgetRegistry,
+  CreateBlockRegistryOptions,
+  CreateWidgetRegistryOptions
+} from "./types/host.js";

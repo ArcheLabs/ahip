@@ -17,7 +17,8 @@ export default [
       },
       globals: {
         console: "readonly",
-        structuredClone: "readonly"
+        structuredClone: "readonly",
+        URL: "readonly"
       }
     },
     plugins: {
