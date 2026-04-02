@@ -73,7 +73,7 @@ export const unsupportedBlockFallbackItem: AHIPExampleFixture<AHIPItem> = {
 export const widgetRegistryItem: AHIPExampleFixture<AHIPItem> = {
   id: "widget-registry-item",
   title: "Widget rendered through registry",
-  description: "A widget reference that a host can resolve through its widget registry.",
+  description: "A widget that a host can resolve through its widget registry.",
   item: {
     protocol: "ahip",
     version: "0.2",
@@ -110,7 +110,7 @@ export const widgetRegistryItem: AHIPExampleFixture<AHIPItem> = {
 export const unsupportedWidgetFallbackItem: AHIPExampleFixture<AHIPItem> = {
   id: "unsupported-widget-fallback-item",
   title: "Unsupported widget fallback item",
-  description: "A valid widget reference that should degrade to fallback text when no renderer is available.",
+  description: "A valid widget that should degrade to fallback text when no renderer is available.",
   item: {
     protocol: "ahip",
     version: "0.2",

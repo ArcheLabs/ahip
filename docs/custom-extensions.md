@@ -1,18 +1,27 @@
 # Custom Extensions
 
-AHIP uses namespaced extension identifiers.
+This page explains how the preview implementation uses namespaced identifiers for custom blocks and widgets. It is intended for hosts and package consumers who need to add local extensions without changing AHIP core semantics.
 
-Examples in this repo use schema-valid identifiers such as:
+## Identifier Model
+
+AHIP uses namespaced extension identifiers of the form `<namespace>/<name>`.
+
+Examples in this repository include:
 
 - `org.ahip.examples/profile.card`
 - `org.ahip.examples/counter.widget`
 - `org.ahip.examples/gomoku.board`
 
-Guidelines:
+## Integration Guidelines
 
-- keep extension identifiers namespaced
-- provide `fallback_text` for custom blocks and widgets whenever practical
-- do not auto-execute unknown custom values
-- let hosts decide which custom renderers are registered locally
+- Keep extension identifiers namespaced and stable.
+- Provide `fallback_text` for custom blocks and widgets whenever practical.
+- Do not auto-execute unknown custom values.
+- Let hosts decide which custom renderers are registered locally.
 
-`@ahip/examples` includes both custom block and unsupported-custom fixtures so hosts can test safe degradation.
+`@ahip/examples` includes both supported and unsupported custom fixtures so hosts can verify safe degradation behavior.
+
+## Read Next
+
+- Examples package structure: [examples.md](./examples.md)
+- Applet boundary: [applet-boundary.md](./applet-boundary.md)

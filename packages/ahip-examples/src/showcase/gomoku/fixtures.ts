@@ -73,7 +73,7 @@ export const gomokuGameStartItem: AHIPExampleFixture<AHIPItem> = {
   id: "gomoku-game-start-item",
   title: "Gomoku game start item",
   description:
-    "An agent turn that starts Gomoku (Five in a Row) with a custom board block and local widget reference.",
+    "An agent turn that starts Gomoku (Five in a Row) with a custom board block and a locally resolved widget.",
   item: {
     protocol: "ahip",
     version: "0.2",
@@ -159,7 +159,7 @@ export const gomokuUpdatedBoardItem: AHIPExampleFixture<AHIPItem> = {
   id: "gomoku-updated-board-item",
   title: "Gomoku updated board item",
   description:
-    "The agent replies with an updated custom board block, a widget reference, and a next-turn status.",
+    "The agent replies with an updated custom board block, a widget, and a next-turn status.",
   item: {
     protocol: "ahip",
     version: "0.2",

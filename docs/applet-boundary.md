@@ -1,26 +1,36 @@
 # Applet Boundary
 
-AHIP references applets. Hosts register and resolve them locally.
+This page explains the applet boundary used by the preview implementation. It is intended for host integrators who need to understand how AHIP references applets without introducing remote code loading.
 
-This repo treats an applet as a local runtime unit that may provide:
+## Core Model
+
+AHIP items may reference applets. Hosts register and resolve them locally.
+
+In this repository, an applet is a local runtime unit that may provide:
 
 - widget renderers
 - custom block renderers
 - action or artifact-related host behavior
 - fallback-aware UI integration
 
-The boundary is intentionally simple:
+## Resolution Flow
 
-1. an AHIP item references a widget or custom block
-2. the host checks its local registration state
-3. the host resolves the widget through a local applet registry
-4. if resolution fails, the host renders fallback text instead
+1. An AHIP item references a widget or custom block.
+2. The host checks its local registration state.
+3. The host resolves the widget or renderer through a local applet registry.
+4. If resolution fails, the host falls back to safe text or block-level fallback content.
 
-What this repo does not do:
+## What This Repository Does Not Define
 
-- download applets from the network
-- execute remote UI code
-- define a universal applet sandbox
-- standardize a production applet packaging format
+- remote applet download
+- browser-side dynamic code execution
+- a universal applet sandbox
+- a production applet packaging standard
 
-See `gomokuAppletManifest`, `gomokuAppletRegistrationFlow`, and `createExampleHostDemo` in `@ahip/examples` for the concrete local-registration example.
+The implementation keeps the boundary intentionally narrow: AHIP references applets, while hosts decide how to register, validate, and resolve them locally.
+
+## Read Next
+
+- Sample host wiring and fixtures: [examples.md](./examples.md)
+- Gomoku showcase: [gomoku-showcase.md](./gomoku-showcase.md)
+- Chinese introduction: [zh-CN/overview.md](./zh-CN/overview.md)

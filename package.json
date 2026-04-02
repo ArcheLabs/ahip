@@ -1,7 +1,9 @@
 {
   "name": "ahip",
-  "version": "0.0.0",
+  "version": "0.2.0-preview.0",
+  "description": "Preview monorepo for the Agent-Human Interaction Protocol.",
   "private": true,
+  "license": "Apache-2.0",
   "packageManager": "pnpm@9.15.9",
   "scripts": {
     "build": "corepack pnpm -r --filter './packages/*' run build",

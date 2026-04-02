@@ -18,7 +18,7 @@ export const gomokuAppletManifest: ExampleAppletManifest = {
   name: "gomoku-local-applet",
   version: "0.1.0",
   description:
-    "Example-only local applet manifest for the Gomoku (Five in a Row) showcase.",
+    "Local applet manifest used by the Gomoku (Five in a Row) showcase.",
   widget_types: [GOMOKU_WIDGET_TYPE],
   block_types: [GOMOKU_BOARD_BLOCK_TYPE]
 };
@@ -56,7 +56,7 @@ export const appletResolvedWidgetItem: AHIPExampleFixture<AHIPItem> = {
   id: "applet-resolved-widget-item",
   title: "Applet-resolved widget item",
   description:
-    "An AHIP item that references a local applet widget and still includes fallback text for unsupported hosts.",
+    "An AHIP item that references a locally registered applet widget and still includes fallback text for unsupported hosts.",
   item: {
     protocol: "ahip",
     version: "0.2",
