@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "paths": {
+      "@ahip/core": ["packages/ahip-core/src/index.ts"],
+      "@ahip/react": ["packages/ahip-react/src/index.tsx"],
+      "@ahip/examples": ["packages/ahip-examples/src/index.ts"]
+    },
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  }
+}

@@ -1,0 +1,1912 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahip.dev/schema/0.2/ahip.schema.json",
+  "title": "AHIP v0.2",
+  "description": "Agent-Human Interaction Protocol v0.2 root schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol",
+    "version",
+    "item_id",
+    "kind",
+    "actor",
+    "created_at"
+  ],
+  "properties": {
+    "protocol": {
+      "const": "ahip"
+    },
+    "version": {
+      "const": "0.2"
+    },
+    "item_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "conversation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "thread_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "$ref": "#/$defs/AHIPItemKind"
+    },
+    "actor": {
+      "$ref": "#/$defs/AHIPActor"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reply_to": {
+      "type": "string",
+      "minLength": 1
+    },
+    "correlation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ContentBlock"
+      }
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AHIPAction"
+      }
+    },
+    "approvals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ApprovalObject"
+      }
+    },
+    "tool_intents": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ToolIntent"
+      }
+    },
+    "widgets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/WidgetRef"
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArtifactRef"
+      }
+    },
+    "state_patches": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/StatePatch"
+      }
+    },
+    "metadata": {
+      "$ref": "#/$defs/AHIPMetadata"
+    },
+    "fallback_text": {
+      "type": "string"
+    },
+    "signature": {
+      "$ref": "#/$defs/AHIPSignature"
+    },
+    "extensions": {
+      "$ref": "#/$defs/ExtensionsMap"
+    }
+  },
+  "$defs": {
+    "stringOrNumber": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        }
+      ]
+    },
+    "arbitraryObject": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "tone": {
+      "enum": [
+        "neutral",
+        "success",
+        "warning",
+        "danger",
+        "info"
+      ]
+    },
+    "importance": {
+      "enum": [
+        "low",
+        "normal",
+        "high"
+      ]
+    },
+    "visibility": {
+      "enum": [
+        "default",
+        "private",
+        "ephemeral"
+      ]
+    },
+    "AHIPItemKind": {
+      "type": "string",
+      "enum": [
+        "turn",
+        "tool_result",
+        "approval_request",
+        "approval_response",
+        "state_patch",
+        "artifact_announcement",
+        "system_notice"
+      ]
+    },
+    "AHIPActor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor_id",
+        "actor_kind"
+      ],
+      "properties": {
+        "actor_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actor_kind": {
+          "type": "string",
+          "enum": [
+            "human",
+            "agent",
+            "system",
+            "tool",
+            "host"
+          ]
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "avatar_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "principal_id": {
+          "type": "string"
+        },
+        "extensions": {
+          "$ref": "#/$defs/ExtensionsMap"
+        }
+      }
+    },
+    "Provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "type": "string"
+        },
+        "tool_name": {
+          "type": "string"
+        },
+        "tool_call_id": {
+          "type": "string"
+        },
+        "source_host": {
+          "type": "string"
+        }
+      }
+    },
+    "AHIPMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "locale": {
+          "type": "string"
+        },
+        "importance": {
+          "$ref": "#/$defs/importance"
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibility"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "required_capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "extensions": {
+          "$ref": "#/$defs/ExtensionsMap"
+        }
+      }
+    },
+    "AHIPSignature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scheme",
+        "signer",
+        "value"
+      ],
+      "properties": {
+        "scheme": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signed_fields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "canonicalization": {
+          "type": "string",
+          "minLength": 1
+        },
+        "extensions": {
+          "$ref": "#/$defs/ExtensionsMap"
+        }
+      }
+    },
+    "BlockBase": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/CoreBlockType"
+            },
+            {
+              "$ref": "#/$defs/ExtensionIdentifier"
+            }
+          ]
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string"
+        },
+        "caption": {
+          "type": "string"
+        },
+        "fallback_text": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/$defs/arbitraryObject"
+        },
+        "extensions": {
+          "$ref": "#/$defs/ExtensionsMap"
+        }
+      }
+    },
+    "TextBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "required": [
+            "text"
+          ],
+          "properties": {
+            "type": {
+              "const": "text"
+            },
+            "text": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "MarkdownBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "markdown"
+          ],
+          "properties": {
+            "type": {
+              "const": "markdown"
+            },
+            "markdown": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "ImageBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "type": {
+              "const": "image"
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "alt": {
+              "type": "string"
+            },
+            "width": {
+              "type": "number",
+              "minimum": 0
+            },
+            "height": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      ]
+    },
+    "FileBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name"
+          ],
+          "properties": {
+            "type": {
+              "const": "file"
+            },
+            "name": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "file_id": {
+              "type": "string"
+            },
+            "mime_type": {
+              "type": "string"
+            },
+            "size_bytes": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      ]
+    },
+    "CodeBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "code"
+          ],
+          "properties": {
+            "type": {
+              "const": "code"
+            },
+            "language": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "QuoteBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "text"
+          ],
+          "properties": {
+            "type": {
+              "const": "quote"
+            },
+            "text": {
+              "type": "string"
+            },
+            "attribution": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "DividerBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "divider"
+            }
+          }
+        }
+      ]
+    },
+    "BadgeBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label"
+          ],
+          "properties": {
+            "type": {
+              "const": "badge"
+            },
+            "label": {
+              "type": "string"
+            },
+            "tone": {
+              "$ref": "#/$defs/tone"
+            }
+          }
+        }
+      ]
+    },
+    "StatBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "value"
+          ],
+          "properties": {
+            "type": {
+              "const": "stat"
+            },
+            "label": {
+              "type": "string"
+            },
+            "value": {
+              "$ref": "#/$defs/stringOrNumber"
+            },
+            "unit": {
+              "type": "string"
+            },
+            "delta": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "value",
+                "direction"
+              ],
+              "properties": {
+                "value": {
+                  "type": "number"
+                },
+                "direction": {
+                  "enum": [
+                    "up",
+                    "down",
+                    "flat"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "TableColumn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "title"
+      ],
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "data_type": {
+          "enum": [
+            "text",
+            "number",
+            "token",
+            "address",
+            "datetime",
+            "badge",
+            "link",
+            "progress"
+          ]
+        },
+        "align": {
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ]
+        },
+        "width": {
+          "type": "number",
+          "minimum": 0
+        },
+        "format": {
+          "type": "string"
+        }
+      }
+    },
+    "BadgeCellValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "label"
+      ],
+      "properties": {
+        "kind": {
+          "const": "badge"
+        },
+        "label": {
+          "type": "string"
+        },
+        "tone": {
+          "$ref": "#/$defs/tone"
+        }
+      }
+    },
+    "LinkCellValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "label",
+        "href"
+      ],
+      "properties": {
+        "kind": {
+          "const": "link"
+        },
+        "label": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "ProgressCellValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "value"
+      ],
+      "properties": {
+        "kind": {
+          "const": "progress"
+        },
+        "value": {
+          "type": "number"
+        }
+      }
+    },
+    "TableCellValue": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/BadgeCellValue"
+        },
+        {
+          "$ref": "#/$defs/LinkCellValue"
+        },
+        {
+          "$ref": "#/$defs/ProgressCellValue"
+        }
+      ]
+    },
+    "TableRow": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/TableCellValue"
+      }
+    },
+    "TableBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "columns",
+            "rows"
+          ],
+          "properties": {
+            "type": {
+              "const": "table"
+            },
+            "columns": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/TableColumn"
+              }
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/TableRow"
+              }
+            },
+            "options": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "dense": {
+                  "type": "boolean"
+                },
+                "striped": {
+                  "type": "boolean"
+                },
+                "sortable": {
+                  "type": "boolean"
+                },
+                "filterable": {
+                  "type": "boolean"
+                },
+                "page_size": {
+                  "type": "number",
+                  "minimum": 1
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ChartDatum": {
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "FieldRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field"
+      ],
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "quantitative",
+            "temporal",
+            "ordinal",
+            "nominal"
+          ]
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "ChartSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "data"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "line",
+            "bar",
+            "area",
+            "pie",
+            "scatter"
+          ]
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ChartDatum"
+          }
+        },
+        "x": {
+          "$ref": "#/$defs/FieldRef"
+        },
+        "y": {
+          "$ref": "#/$defs/FieldRef"
+        },
+        "series": {
+          "$ref": "#/$defs/FieldRef"
+        },
+        "color": {
+          "$ref": "#/$defs/FieldRef"
+        },
+        "size": {
+          "$ref": "#/$defs/FieldRef"
+        },
+        "label": {
+          "$ref": "#/$defs/FieldRef"
+        },
+        "options": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "stacked": {
+              "type": "boolean"
+            },
+            "smooth": {
+              "type": "boolean"
+            },
+            "legend": {
+              "type": "boolean"
+            },
+            "show_grid": {
+              "type": "boolean"
+            },
+            "show_axis": {
+              "type": "boolean"
+            },
+            "y_domain": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "number"
+              }
+            },
+            "x_axis_label": {
+              "type": "string"
+            },
+            "y_axis_label": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "ChartBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "spec"
+          ],
+          "properties": {
+            "type": {
+              "const": "chart"
+            },
+            "spec": {
+              "$ref": "#/$defs/ChartSpec"
+            }
+          }
+        }
+      ]
+    },
+    "EntityCardField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "value"
+      ],
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "EntityCardBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "entity_kind",
+            "entity_id",
+            "name"
+          ],
+          "properties": {
+            "type": {
+              "const": "entity_card"
+            },
+            "entity_kind": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "user",
+                    "agent",
+                    "twin",
+                    "dao",
+                    "asset"
+                  ]
+                },
+                {
+                  "$ref": "#/$defs/ExtensionIdentifier"
+                }
+              ]
+            },
+            "entity_id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "avatar_url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/EntityCardField"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "TextFormField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "key",
+        "label"
+      ],
+      "properties": {
+        "kind": {
+          "const": "text"
+        },
+        "key": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "default_value": {
+          "type": "string"
+        }
+      }
+    },
+    "TextareaFormField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "key",
+        "label"
+      ],
+      "properties": {
+        "kind": {
+          "const": "textarea"
+        },
+        "key": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "default_value": {
+          "type": "string"
+        }
+      }
+    },
+    "NumberFormField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "key",
+        "label"
+      ],
+      "properties": {
+        "kind": {
+          "const": "number"
+        },
+        "key": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "default_value": {
+          "type": "number"
+        }
+      }
+    },
+    "SelectOption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "value"
+      ],
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "SelectFormField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "key",
+        "label",
+        "options"
+      ],
+      "properties": {
+        "kind": {
+          "const": "select"
+        },
+        "key": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SelectOption"
+          }
+        },
+        "default_value": {
+          "type": "string"
+        }
+      }
+    },
+    "CheckboxFormField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "key",
+        "label"
+      ],
+      "properties": {
+        "kind": {
+          "const": "checkbox"
+        },
+        "key": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "default_value": {
+          "type": "boolean"
+        }
+      }
+    },
+    "FormField": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/TextFormField"
+        },
+        {
+          "$ref": "#/$defs/TextareaFormField"
+        },
+        {
+          "$ref": "#/$defs/NumberFormField"
+        },
+        {
+          "$ref": "#/$defs/SelectFormField"
+        },
+        {
+          "$ref": "#/$defs/CheckboxFormField"
+        }
+      ]
+    },
+    "FormBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "form_id",
+            "submit_action_id",
+            "fields"
+          ],
+          "properties": {
+            "type": {
+              "const": "form"
+            },
+            "form_id": {
+              "type": "string"
+            },
+            "submit_action_id": {
+              "type": "string"
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/FormField"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "StatusBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "type": {
+              "const": "status"
+            },
+            "status": {
+              "enum": [
+                "idle",
+                "running",
+                "waiting",
+                "done",
+                "failed"
+              ]
+            },
+            "message": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "ErrorBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "code",
+            "message"
+          ],
+          "properties": {
+            "type": {
+              "const": "error"
+            },
+            "code": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "recoverable": {
+              "type": "boolean"
+            }
+          }
+        }
+      ]
+    },
+    "PaymentRequestBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "amount",
+            "asset",
+            "receiver"
+          ],
+          "properties": {
+            "type": {
+              "const": "payment_request"
+            },
+            "payment_scheme": {
+              "type": "string"
+            },
+            "payment_intent_id": {
+              "type": "string"
+            },
+            "amount": {
+              "type": "string"
+            },
+            "asset": {
+              "type": "string"
+            },
+            "receiver": {
+              "type": "string"
+            },
+            "memo": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "pending",
+                "paid",
+                "expired",
+                "cancelled"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "PaymentReceiptBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "amount",
+            "asset",
+            "sender",
+            "receiver",
+            "status"
+          ],
+          "properties": {
+            "type": {
+              "const": "payment_receipt"
+            },
+            "payment_scheme": {
+              "type": "string"
+            },
+            "tx_hash": {
+              "type": "string"
+            },
+            "amount": {
+              "type": "string"
+            },
+            "asset": {
+              "type": "string"
+            },
+            "sender": {
+              "type": "string"
+            },
+            "receiver": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "confirmed",
+                "pending",
+                "failed"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "CustomBlock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BlockBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "$ref": "#/$defs/ExtensionIdentifier"
+            },
+            "data": {
+              "$ref": "#/$defs/arbitraryObject"
+            }
+          }
+        }
+      ]
+    },
+    "ContentBlock": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/TextBlock"
+        },
+        {
+          "$ref": "#/$defs/MarkdownBlock"
+        },
+        {
+          "$ref": "#/$defs/ImageBlock"
+        },
+        {
+          "$ref": "#/$defs/FileBlock"
+        },
+        {
+          "$ref": "#/$defs/CodeBlock"
+        },
+        {
+          "$ref": "#/$defs/QuoteBlock"
+        },
+        {
+          "$ref": "#/$defs/DividerBlock"
+        },
+        {
+          "$ref": "#/$defs/BadgeBlock"
+        },
+        {
+          "$ref": "#/$defs/StatBlock"
+        },
+        {
+          "$ref": "#/$defs/TableBlock"
+        },
+        {
+          "$ref": "#/$defs/ChartBlock"
+        },
+        {
+          "$ref": "#/$defs/EntityCardBlock"
+        },
+        {
+          "$ref": "#/$defs/FormBlock"
+        },
+        {
+          "$ref": "#/$defs/StatusBlock"
+        },
+        {
+          "$ref": "#/$defs/ErrorBlock"
+        },
+        {
+          "$ref": "#/$defs/PaymentRequestBlock"
+        },
+        {
+          "$ref": "#/$defs/PaymentReceiptBlock"
+        },
+        {
+          "$ref": "#/$defs/CustomBlock"
+        }
+      ]
+    },
+    "CoreActionKind": {
+      "type": "string",
+      "enum": [
+        "submit_form",
+        "open_url",
+        "copy_text",
+        "reply_with_template",
+        "invoke_widget_action",
+        "invoke_tool",
+        "approve",
+        "reject",
+        "initiate_payment",
+        "open_artifact",
+        "retry",
+        "continue_task"
+      ]
+    },
+    "AHIPAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "kind"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "kind": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/CoreActionKind"
+            },
+            {
+              "$ref": "#/$defs/ExtensionIdentifier"
+            }
+          ]
+        },
+        "style": {
+          "enum": [
+            "primary",
+            "secondary",
+            "danger"
+          ]
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "payload": {
+          "$ref": "#/$defs/arbitraryObject"
+        },
+        "fallback_text": {
+          "type": "string"
+        },
+        "extensions": {
+          "$ref": "#/$defs/ExtensionsMap"
+        }
+      }
+    },
+    "ApprovalScope": {
+      "oneOf": [
+        {
+          "enum": [
+            "payment",
+            "wallet_signature",
+            "external_api",
+            "data_write",
+            "message_send",
+            "tool_execution",
+            "custom"
+          ]
+        },
+        {
+          "$ref": "#/$defs/ExtensionIdentifier"
+        }
+      ]
+    },
+    "ApprovalRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approval_id",
+        "kind",
+        "scope",
+        "title"
+      ],
+      "properties": {
+        "approval_id": {
+          "type": "string"
+        },
+        "kind": {
+          "const": "request"
+        },
+        "scope": {
+          "$ref": "#/$defs/ApprovalScope"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "risk_level": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "expires_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "payload": {
+          "$ref": "#/$defs/arbitraryObject"
+        },
+        "fallback_text": {
+          "type": "string"
+        },
+        "extensions": {
+          "$ref": "#/$defs/ExtensionsMap"
+        }
+      }
+    },
+    "ApprovalResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approval_id",
+        "kind",
+        "response"
+      ],
+      "properties": {
+        "approval_id": {
+          "type": "string"
+        },
+        "kind": {
+          "const": "response"
+        },
+        "response": {
+          "enum": [
+            "approved",
+            "rejected",
+            "expired"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "responded_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "extensions": {
+          "$ref": "#/$defs/ExtensionsMap"
+        }
+      }
+    },
+    "ApprovalObject": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/ApprovalRequest"
+        },
+        {
+          "$ref": "#/$defs/ApprovalResponse"
+        }
+      ]
+    },
+    "ToolIntent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "intent_id",
+        "tool_name",
+        "status"
+      ],
+      "properties": {
+        "intent_id": {
+          "type": "string"
+        },
+        "tool_name": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "proposed",
+            "awaiting_approval",
+            "awaiting_user_input",
+            "ready",
+            "running",
+            "completed",
+            "failed"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "proposed_args": {
+          "$ref": "#/$defs/arbitraryObject"
+        },
+        "missing_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "result_artifact_id": {
+          "type": "string"
+        },
+        "fallback_text": {
+          "type": "string"
+        },
+        "extensions": {
+          "$ref": "#/$defs/ExtensionsMap"
+        }
+      }
+    },
+    "WidgetPermissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "network": {
+          "enum": [
+            "none",
+            "limited"
+          ]
+        },
+        "clipboard": {
+          "type": "boolean"
+        },
+        "wallet": {
+          "type": "boolean"
+        },
+        "storage": {
+          "enum": [
+            "none",
+            "session"
+          ]
+        },
+        "extensions": {
+          "$ref": "#/$defs/ExtensionsMap"
+        }
+      }
+    },
+    "WidgetRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "widget_id",
+        "widget_type",
+        "props"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "widget_id": {
+          "type": "string"
+        },
+        "widget_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "permissions": {
+          "$ref": "#/$defs/WidgetPermissions"
+        },
+        "fallback_text": {
+          "type": "string"
+        },
+        "extensions": {
+          "$ref": "#/$defs/ExtensionsMap"
+        }
+      }
+    },
+    "ArtifactKind": {
+      "oneOf": [
+        {
+          "enum": [
+            "dataset",
+            "document",
+            "report",
+            "deck_outline",
+            "slide_spec",
+            "code_bundle",
+            "payment_intent",
+            "task_snapshot",
+            "image",
+            "audio",
+            "video",
+            "custom"
+          ]
+        },
+        {
+          "$ref": "#/$defs/ExtensionIdentifier"
+        }
+      ]
+    },
+    "ArtifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id",
+        "kind"
+      ],
+      "properties": {
+        "artifact_id": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/ArtifactKind"
+        },
+        "name": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "mime_type": {
+          "type": "string"
+        },
+        "checksum": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "extensions": {
+          "$ref": "#/$defs/ExtensionsMap"
+        },
+        "fallback_text": {
+          "type": "string"
+        }
+      }
+    },
+    "StatePatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "patch_id",
+        "target",
+        "op",
+        "path"
+      ],
+      "properties": {
+        "patch_id": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "op": {
+          "enum": [
+            "set",
+            "merge",
+            "append",
+            "remove"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "value": true,
+        "extensions": {
+          "$ref": "#/$defs/ExtensionsMap"
+        }
+      }
+    },
+    "ExtensionIdentifier": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*(?:\\.[a-z0-9]+(?:[.-][a-z0-9]+)*)*/[a-z0-9][a-z0-9._-]*$",
+      "description": "Namespaced extension identifier of the form <namespace>/<name>."
+    },
+    "ExtensionsMap": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*(?:\\.[a-z0-9]+(?:[.-][a-z0-9]+)*)*/[a-z0-9][a-z0-9._-]*$"
+      },
+      "additionalProperties": true,
+      "description": "Map keyed by extension identifiers."
+    },
+    "CoreBlockType": {
+      "type": "string",
+      "enum": [
+        "text",
+        "markdown",
+        "image",
+        "file",
+        "code",
+        "quote",
+        "divider",
+        "badge",
+        "stat",
+        "table",
+        "chart",
+        "entity_card",
+        "form",
+        "status",
+        "error",
+        "payment_request",
+        "payment_receipt"
+      ]
+    },
+    "CapabilitySet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocol_version",
+        "supported_item_kinds",
+        "supported_blocks",
+        "supported_actions"
+      ],
+      "properties": {
+        "protocol_version": {
+          "type": "string"
+        },
+        "supported_item_kinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "supported_blocks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "supported_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "supported_widget_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "supported_artifact_kinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "max_blocks_per_item": {
+              "type": "number",
+              "minimum": 0
+            },
+            "max_inline_table_rows": {
+              "type": "number",
+              "minimum": 0
+            },
+            "max_chart_points": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        },
+        "extensions": {
+          "$ref": "#/$defs/ExtensionsMap"
+        }
+      }
+    }
+  }
+}
