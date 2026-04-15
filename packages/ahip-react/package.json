@@ -4,6 +4,22 @@
   "description": "Host-controlled React renderer for the Agent-Human Interaction Protocol.",
   "license": "Apache-2.0",
   "private": false,
+  "keywords": [
+    "ahip",
+    "agent",
+    "protocol",
+    "react",
+    "renderer"
+  ],
+  "homepage": "https://github.com/ArcheLabs/ahip#readme",
+  "bugs": {
+    "url": "https://github.com/ArcheLabs/ahip/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArcheLabs/ahip.git",
+    "directory": "packages/ahip-react"
+  },
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -18,6 +34,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "README.zh-CN.md"
+  ],
   "scripts": {
     "build": "tsup src/index.tsx --format esm,cjs --dts --external react --external react-dom",
     "typecheck": "tsc --noEmit -p tsconfig.json",

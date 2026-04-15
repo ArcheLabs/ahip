@@ -4,6 +4,22 @@
   "description": "Core validation, schema, and safety helpers for the Agent-Human Interaction Protocol.",
   "license": "Apache-2.0",
   "private": false,
+  "keywords": [
+    "ahip",
+    "agent",
+    "protocol",
+    "validation",
+    "json-schema"
+  ],
+  "homepage": "https://github.com/ArcheLabs/ahip#readme",
+  "bugs": {
+    "url": "https://github.com/ArcheLabs/ahip/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArcheLabs/ahip.git",
+    "directory": "packages/ahip-core"
+  },
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -18,7 +34,10 @@
   },
   "files": [
     "dist",
-    "src/schema/ahip-v0.2.schema.json"
+    "src/schema/ahip-v0.2.schema.json",
+    "LICENSE",
+    "README.md",
+    "README.zh-CN.md"
   ],
   "publishConfig": {
     "access": "public"

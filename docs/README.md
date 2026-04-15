@@ -13,6 +13,12 @@ If you are new to the repository, read the documents in this order:
 7. [applet-boundary.md](./applet-boundary.md)
 8. [gomoku-showcase.md](./gomoku-showcase.md)
 
+Package-local npm READMEs live inside each package:
+
+- [`packages/ahip-core/README.md`](../packages/ahip-core/README.md)
+- [`packages/ahip-react/README.md`](../packages/ahip-react/README.md)
+- [`packages/ahip-examples/README.md`](../packages/ahip-examples/README.md)
+
 ## Document Groups
 
 ### Protocol and Data Model
@@ -34,10 +40,20 @@ If you are new to the repository, read the documents in this order:
 ## Chinese Entry Point
 
 - [zh-CN/README.md](./zh-CN/README.md)
+- [zh-CN/overview.md](./zh-CN/overview.md)
+- [zh-CN/getting-started.md](./zh-CN/getting-started.md)
+- [zh-CN/package-overview.md](./zh-CN/package-overview.md)
+- [zh-CN/core-validation.md](./zh-CN/core-validation.md)
+- [zh-CN/react-rendering.md](./zh-CN/react-rendering.md)
+- [zh-CN/examples.md](./zh-CN/examples.md)
+- [zh-CN/custom-extensions.md](./zh-CN/custom-extensions.md)
+- [zh-CN/applet-boundary.md](./zh-CN/applet-boundary.md)
+- [zh-CN/gomoku-showcase.md](./zh-CN/gomoku-showcase.md)
 
 ## Preview Boundary
 
 - The implementation is ready for integration and experimentation.
 - Some APIs and extension boundaries may still evolve before a stable release.
 - Hosts should validate untrusted input before rendering content or dispatching behavior.
+- Applets are host-validated local runtime units; AHIP does not define remote applet loading or browser-side dynamic code execution.
 - The examples package documents the reference implementation surface; it is not a substitute for protocol conformance requirements.

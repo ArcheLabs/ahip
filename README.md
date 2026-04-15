@@ -23,6 +23,12 @@ AHIP is designed for cases where plain text chat is not enough. An item may incl
 - `docs/`
   Integration guides, package overview material, extension guidance, and showcase documentation.
 
+Each package also includes its own npm-facing README:
+
+- [`packages/ahip-core/README.md`](./packages/ahip-core/README.md)
+- [`packages/ahip-react/README.md`](./packages/ahip-react/README.md)
+- [`packages/ahip-examples/README.md`](./packages/ahip-examples/README.md)
+
 ## Project Status
 
 This repository is currently a preview release.
@@ -104,4 +110,4 @@ The root workspace scripts run across `packages/ahip-core`, `packages/ahip-react
 - Use `@ahip/core` to validate and normalize input before rendering.
 - Use `@ahip/react` when you want a host-controlled React implementation instead of building a renderer from scratch.
 - Use `@ahip/examples` to test fallback behavior, registry wiring, applet resolution, and showcase flows such as Gomoku (Five in a Row).
-- Applets are locally registered runtime units. AHIP items may reference them, but this repository does not define remote applet loading or browser-side code download.
+- Applets are host-validated, locally registered runtime units. AHIP items may reference them, but this repository does not define remote applet loading, browser-side code download, or automatic execution of untrusted applet code.

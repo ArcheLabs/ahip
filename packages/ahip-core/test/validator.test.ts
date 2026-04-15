@@ -62,7 +62,7 @@ describe("@ahip/core validation", () => {
   });
 
   it("checks extension identifiers with the schema-aligned pattern", () => {
-    expect(isExtensionIdentifier("dev.vibly/kanban_board")).toBe(true);
+    expect(isExtensionIdentifier("org.example/kanban_board")).toBe(true);
     expect(isExtensionIdentifier("org.example.gomoku.board")).toBe(false);
   });
 });

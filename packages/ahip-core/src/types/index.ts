@@ -11,7 +11,7 @@ export type URIString = string;
 
 /**
  * Namespaced extension identifier of the form <namespace>/<name>,
- * for example: dev.vibly/kanban_board
+ * for example: org.example/kanban_board
  *
  * TypeScript cannot fully enforce the runtime pattern; validate with schema.
  */

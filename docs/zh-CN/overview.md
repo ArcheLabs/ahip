@@ -30,7 +30,7 @@ AHIP 试图把这些交互表示为宿主可校验、可渲染、可降级的数
 - 让 agent 表达语义意图，由宿主控制最终呈现与执行
 - 让不支持某些能力的宿主仍能安全降级
 - 通过命名空间扩展支持自定义 block 和 widget
-- 保持 applet 边界清晰：AHIP 只引用 applet，宿主本地注册并解析
+- 保持 applet 边界清晰：AHIP 只引用 applet，宿主本地校验、注册并解析
 - 让外部项目能够基于统一的数据结构做集成和测试
 
 ## 仓库结构
@@ -60,11 +60,11 @@ AHIP 试图把这些交互表示为宿主可校验、可渲染、可降级的数
 - 对不可信输入先做校验，再进入渲染或执行路径
 - 把 widget、action、artifact 等能力保持在宿主控制下
 - 对未知 block、widget 或扩展值保留 fallback
-- 不把远程 applet 下载、在线插件市场或浏览器侧代码执行引入当前边界
+- 不把远程 applet 下载、在线插件市场、浏览器侧代码执行或自动执行不可信 applet 代码引入当前边界
 
 ## 下一步阅读
 
 - 英文总览: [../overview.md](../overview.md)
-- 快速开始: [../getting-started.md](../getting-started.md)
-- React 渲染: [../react-rendering.md](../react-rendering.md)
-- applet 边界: [../applet-boundary.md](../applet-boundary.md)
+- 快速开始: [getting-started.md](./getting-started.md)
+- React 渲染: [react-rendering.md](./react-rendering.md)
+- applet 边界: [applet-boundary.md](./applet-boundary.md)

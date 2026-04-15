@@ -23,6 +23,12 @@ AHIP 适用于纯文本聊天不足以表达交互意图的场景。一个 AHIP 
 - `docs/`
   提供集成文档、包说明、扩展说明和 showcase 文档。
 
+每个 package 也包含面向 npm 展示的 README：
+
+- [`packages/ahip-core/README.zh-CN.md`](./packages/ahip-core/README.zh-CN.md)
+- [`packages/ahip-react/README.zh-CN.md`](./packages/ahip-react/README.zh-CN.md)
+- [`packages/ahip-examples/README.zh-CN.md`](./packages/ahip-examples/README.zh-CN.md)
+
 ## 当前状态
 
 本仓库目前处于 preview / pre-release 阶段。
@@ -104,4 +110,4 @@ corepack pnpm build
 - 用 `@ahip/core` 对输入做校验和规范化，再进入渲染或执行流程。
 - 用 `@ahip/react` 作为宿主可控的 React 参考实现，而不是把协议对象直接映射成产品私有 UI。
 - 用 `@ahip/examples` 验证 fallback、registry、applet 解析与 showcase 场景。
-- Applet 是本地注册的运行单元。AHIP item 可以引用 applet，但本仓库不定义远程 applet 下载，也不提供浏览器侧动态代码加载。
+- Applet 是由宿主校验并本地注册的运行单元。AHIP item 可以引用 applet，但本仓库不定义远程 applet 加载、浏览器侧代码下载，也不自动执行不可信 applet 代码。
