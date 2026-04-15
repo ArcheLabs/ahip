@@ -1,6 +1,6 @@
 {
   "name": "@ahip/react",
-  "version": "0.2.0-preview.0",
+  "version": "0.2.0-preview",
   "description": "Host-controlled React renderer for the Agent-Human Interaction Protocol.",
   "license": "Apache-2.0",
   "private": false,

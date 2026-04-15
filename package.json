@@ -1,6 +1,6 @@
 {
   "name": "ahip",
-  "version": "0.2.0-preview.0",
+  "version": "0.2.0-preview",
   "description": "Preview monorepo for the Agent-Human Interaction Protocol.",
   "private": true,
   "license": "Apache-2.0",
